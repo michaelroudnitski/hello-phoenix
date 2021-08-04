@@ -1,0 +1,17 @@
+version: "3"
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: hello_app
+    image: "postgres:11-alpine"
+    restart: always
+  web:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
